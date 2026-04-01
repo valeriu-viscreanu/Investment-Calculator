@@ -1,5 +1,9 @@
+import { calculateInvestmentResults } from "../util/investment.js";
 
-export default function Results({ userInput }) {
+export default function Results({ input }) {
+
+    const annualData = calculateInvestmentResults(input);
+    console.log(annualData);
     return <section id="results">
         <table id="result">
             <thead>
@@ -12,11 +16,20 @@ export default function Results({ userInput }) {
                 </tr>
             </thead>
             <tbody>
+                {annualData.map((yearData) => (
+                    <tr key={yearData.year}>
+                        <td>{yearData.year}</td>
+                        <td>{yearData.investmentValue}</td>
+                        <td>{yearData.interestEarned}</td>
+                        <td>{yearData.totalInterest}</td>
+                        <td>{yearData.investedCapital}</td>
+                    </tr>
+                ))}
                 <tr>
-                    <td>{userInput.initialInvestment}</td>
-                    <td>{userInput.annualInvestment}</td>
-                    <td>{userInput.expectedReturn}</td>
-                    <td>{userInput.duration}</td>
+                    <td>{annualData.initialInvestment}</td>
+                    <td>{annualData.annualInvestment}</td>
+                    <td>{annualData.expectedReturn}</td>
+                    <td>{annualData.duration}</td>
                 </tr>
             </tbody>
         </table>

@@ -27,7 +27,7 @@ function App() {
     <>
       <Header />
       <UserInput OnChange={handleChange} userInput={userInput} />
-      <Results userInput={userInput} />
+      <Results input={userInput} />
     </>
   );
 }

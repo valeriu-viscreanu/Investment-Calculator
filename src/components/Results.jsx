@@ -1,8 +1,9 @@
-import { calculateInvestmentResults } from "../util/investment.js";
+import { calculateInvestmentResults, formatter } from "../util/investment.js";
 
 export default function Results({ input }) {
 
     const annualData = calculateInvestmentResults(input);
+    const initialInvestment = input.initialInvestment;
     console.log(annualData);
     return <section id="results">
         <table id="result">
@@ -10,21 +11,24 @@ export default function Results({ input }) {
                 <tr>
                     <th>Year</th>
                     <th>Investment Value</th>
-                    <th>Interest Earned</th>
-                    {/* <th>Total Interest</th>
-                    <th>Invested Capital</th> */}
+                    <th>Interest (Year)</th>
+                    <th>Total Interest</th>
+                    <th>Invested Capital</th>
                 </tr>
             </thead>
             <tbody>
-                {annualData.map((yearData) => (
-                    <tr key={yearData.year}>
+                {annualData.map((yearData) => {
+                    const totalInterest = yearData.valueEndOfYear - yearData.annualInvestment * yearData.year - initialInvestment;
+
+                    const totalInvestment = yearData.valueEndOfYear - totalInterest;
+                    return (<tr key={yearData.year}>
                         <td>{yearData.year}</td>
-                        <td>{yearData.valueEndOfYear}</td>
-                        <td>{yearData.interest}</td>
-                        {/* <td>{yearData.totalInterest}</td>
-                        <td>{yearData.annualInvestment}</td> */}
-                    </tr>
-                ))}
+                        <td>{formatter.format(yearData.valueEndOfYear)}</td>
+                        <td>{formatter.format(yearData.interest)}</td>
+                        <td>{formatter.format(totalInterest)}</td>
+                        <td>{formatter.format(totalInvestment)}</td>
+                    </tr>)
+                })}
             </tbody>
         </table>
     </section>

@@ -7,12 +7,13 @@ import { useState } from "react";
 function App() {
 
   const [userInput, setUserInput] = useState({
-    initialInvestment: 0,
-    annualInvestment: 0,
-    expectedReturn: 0,
-    duration: 0
+    initialInvestment: 10000,
+    annualInvestment: 1000,
+    expectedReturn: 6,
+    duration: 10
   })
 
+  const inputIsValid = userInput.duration >= 1;
   function handleChange(inputIdentifier, value) {
     setUserInput(prevUserInput => {
       return {
@@ -27,7 +28,7 @@ function App() {
     <>
       <Header />
       <UserInput OnChange={handleChange} userInput={userInput} />
-      <Results input={userInput} />
+      {inputIsValid ? <Results input={userInput} /> : <p className='center'>Please enter valid input</p>}
     </>
   );
 }

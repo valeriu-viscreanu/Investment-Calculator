@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <Header />
-      <UserInput OnChange={handleChange} userInput={userInput} />
+      <UserInput onChange={handleChange} userInput={userInput} />
       {inputIsValid ? <Results input={userInput} /> : <p className='center'>Please enter valid input</p>}
     </>
   );
